@@ -12,8 +12,8 @@ jobs:
 
     env:
       DB_DATABASE: test_catalogo
-      DB_USER: secret
-      DB_PASSWORD: default
+      DB_USER: root
+      DB_PASSWORD: root
 
     steps:
       - name: Checkout code
