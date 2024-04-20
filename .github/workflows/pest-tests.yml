@@ -10,9 +10,19 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
 
+    env:
+      DB_DATABASE: test_catalogo
+      DB_USER: secret
+      DB_PASSWORD: default
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Start MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -24,6 +34,9 @@ jobs:
 
       - name: Set up Laravel environment
         run: cp .env.testing .env
+
+      - name: Run Migrations
+        run: php artisan migrate --force -v
 
       - name: Run Pest tests
         run: ./vendor/bin/pest
