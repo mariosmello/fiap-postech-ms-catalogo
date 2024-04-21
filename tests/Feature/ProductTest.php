@@ -57,3 +57,25 @@ it('can delete a product', function () {
     \App\Models\Product::findOrFail($product->id);
 
 })->throws(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
+
+
+it('can find products by ids', function () {
+
+    \App\Models\Product::factory(5)->create();
+    $products = \App\Models\Product::pluck('id');
+
+    $this->getJson(route('products.search', ['id' => $products->toArray()]))
+        ->assertStatus(200)
+        ->assertJsonCount(5);
+
+});
+
+it('cant find products when invalid id', function () {
+
+    \App\Models\Product::factory()->create();
+
+    $this->getJson(route('products.search', ['id' => [999]]))
+        ->assertStatus(200)
+        ->assertJsonCount(0);
+
+});

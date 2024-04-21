@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\IndexProductRequest;
-use App\Models\Category;
+use App\Http\Requests\SearchProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -34,5 +33,13 @@ class ProductController extends Controller
     {
         $product->delete();
         return response()->json([], 204);
+    }
+
+    public function search(SearchProductRequest $request) {
+
+        $data = $request->safe()->only('id');
+        $products = Product::whereIn('id', $data['id'])->get();
+
+        return response()->json($products);
     }
 }
