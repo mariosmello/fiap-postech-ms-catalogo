@@ -42,17 +42,17 @@ jobs:
         run: php artisan migrate --force -v
         env:
           DB_HOST: 127.0.0.1
-          DB_DATABASE: $DB_DATABASE
-          DB_USERNAME: $DB_USER
-          DB_PASSWORD: $DB_PASSWORD
+          DB_DATABASE: "$DB_DATABASE"
+          DB_USERNAME: "$DB_USER"
+          DB_PASSWORD: "$DB_PASSWORD"
 
       - name: Run Pest tests
         run: ./vendor/bin/pest
         env:
           DB_HOST: 127.0.0.1
-          DB_DATABASE: $DB_DATABASE
-          DB_USERNAME: $DB_USER
-          DB_PASSWORD: $DB_PASSWORD
+          DB_DATABASE: "$DB_DATABASE"
+          DB_USERNAME: "$DB_USER"
+          DB_PASSWORD: "$DB_PASSWORD"
 
       - name: Get Composer cache directory
         id: composer-cache
