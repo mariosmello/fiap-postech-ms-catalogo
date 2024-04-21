@@ -47,12 +47,25 @@ jobs:
           DB_PASSWORD: root
 
       - name: Run Pest tests
-        run: ./vendor/bin/pest
+        run: ./vendor/bin/pest --coverage --coverage-cobertura coverage.xml
         env:
           DB_HOST: 127.0.0.1
           DB_DATABASE: test_catalogo
           DB_USERNAME: root
           DB_PASSWORD: root
+
+      - name: Code Coverage Report
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: ./coverage.xml
+          badge: true
+          fail_below_min: true
+          format: markdown
+          hide_branch_rate: false
+          hide_complexity: true
+          indicators: true
+          output: both
+          thresholds: '60 80'
 
       - name: Get Composer cache directory
         id: composer-cache
