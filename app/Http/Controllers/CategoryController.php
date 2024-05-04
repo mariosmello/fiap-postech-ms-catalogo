@@ -14,9 +14,9 @@ class CategoryController extends Controller
         return response()->json($categories);
     }
 
-    public function create(CreateCategoryRequest $request)
+    public function store(CreateCategoryRequest $request)
     {
-        $category = new Category($request->only('name', 'description'));
+        $category = new Category($request->safe()->only('name', 'description'));
         $category->save();
         return response()->json($category, 201);
     }
