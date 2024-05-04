@@ -16,4 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (UnauthorizedException $e) {
             return response()->json([], 401);
         });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e) {
+            return response()->json([], 404);
+        });
     })->create();

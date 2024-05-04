@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\IndexProductRequest;
 use App\Http\Requests\SearchProductRequest;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -40,6 +42,7 @@ class ProductController extends Controller
         $data = $request->safe()->only('id');
         $products = Product::whereIn('id', $data['id'])->get();
 
-        return response()->json($products);
+        return ProductResource::collection($products);
+
     }
 }

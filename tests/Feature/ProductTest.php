@@ -66,7 +66,7 @@ it('can find products by ids', function () {
 
     $this->getJson(route('products.search', ['id' => $products->toArray()]))
         ->assertStatus(200)
-        ->assertJsonCount(5);
+        ->assertJsonCount(5, 'data');
 
 });
 
@@ -76,6 +76,6 @@ it('cant find products when invalid id', function () {
 
     $this->getJson(route('products.search', ['id' => [999]]))
         ->assertStatus(200)
-        ->assertJsonCount(0);
+        ->assertJsonCount(0, 'data');
 
 });
