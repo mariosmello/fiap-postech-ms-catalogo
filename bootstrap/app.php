@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(\App\Http\Middleware\EnsureTokenIsValid::class);
+        $middleware->append(\Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (UnauthorizedException $e) {
